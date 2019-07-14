@@ -1,23 +1,4 @@
 #include <iostream>
-#include <stdlib.h>
-#include <iostream>
-#include <sstream>
-#include <stdexcept>
-/* uncomment for applications that use vectors */
-/*#include <vector>*/
-
-#include "mysql_connection.h"
-
-#include <cppconn/driver.h>
-#include <cppconn/exception.h>
-#include <cppconn/resultset.h>
-#include <cppconn/statement.h>
-#include <cppconn/prepared_statement.h>
-
-#define EXAMPLE_HOST "localhost"
-#define EXAMPLE_USER "worlduser"
-#define EXAMPLE_PASS "worldpass"
-#define EXAMPLE_DB "world"
 
 using namespace std;
 
@@ -31,6 +12,22 @@ struct nodo {
     }
 };
 
+struct nodo_p {
+    nodo *P;
+    nodo_p *next;
+
+    nodo_p(nodo *a = 0, nodo_p *b = 0) {
+        P = a;
+        next = b;
+    }
+};
+
+void creanodo(nodo *&list, int input) {
+    if (!list)
+        list = new nodo(input);
+    else
+        creanodo(list->next, input);
+}
 
 void stampa_n(nodo *list) {
     if (!list) {
@@ -41,16 +38,40 @@ void stampa_n(nodo *list) {
     stampa_n(list->next);
 }
 
+nodo* leggi(){
+    int input;
+    cin >> input;
+    if(input == -1)
+        return 0;
+    return new nodo(input,leggi());
+}
+
+int dim_p(nodo *list) {
+    if (!list)
+        return 0;
+    return 1 + dim_p(list->next);
+}
+
+/*
+
+nodo *sequence_check(nodo *list, int dim_P) {
+
+}
+
+nodo_p *pattern_finder(nodo *list) {
+    if (!list)
+        return 0;
+    if (!)
+        return pattern_finder(list->next);
+}
+*/
 int main() {
 
+    nodo* L1 = 0;
+    L1 = leggi();
 
-    sql::mysql::MySQL_Driver *driver;
-    sql::Connection *con;
+    cout << dim_p(L1);
 
-    driver = sql::mysql::get_mysql_driver_instance();
-    con = driver->connect("tcp://127.0.0.1:3306", "user", "password");
-
-    delete con;
     return 0;
 }
 
