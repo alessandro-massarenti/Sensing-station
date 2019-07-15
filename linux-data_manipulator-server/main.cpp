@@ -29,6 +29,10 @@ void creanodo(nodo *&list, int input) {
         creanodo(list->next, input);
 }
 
+void aggiungi_nodo_p(nodo_p *&raccolta, nodo *list) {
+
+}
+
 void stampa_n(nodo *list) {
     if (!list) {
         cout << endl;
@@ -38,12 +42,12 @@ void stampa_n(nodo *list) {
     stampa_n(list->next);
 }
 
-nodo* leggi(){
+nodo *leggi() {
     int input;
     cin >> input;
-    if(input == -1)
+    if (input == -1)
         return 0;
-    return new nodo(input,leggi());
+    return new nodo(input, leggi());
 }
 
 int dim_p(nodo *list) {
@@ -52,26 +56,33 @@ int dim_p(nodo *list) {
     return 1 + dim_p(list->next);
 }
 
-bool check(nodo* list, nodo* P){
-    if(!P)
+bool check(nodo *list, nodo *P) {
+    if (!P)
         return true;
-    if(!list)
+    if (!list)
         return false;
-    if(list->info == P->info)
-        return check(list->next,P->next);
+    if (list->info == P->info)
+        return check(list->next, P->next);
     return false;
 }
 
-
-nodo* match(nodo* list, nodo* P){
-    if(!list)
+nodo *copy(nodo *list, int quantity) {
+    if (!list)
         return 0;
-    if(check(list,P)){
-        return list;
+    if (!quantity)
+        return 0;
+    return new nodo(list->info, copy(list->next, quantity - 1));
+}
+
+nodo *match(nodo *list, nodo *P) {
+    if (!list)
+        return 0;
+    if (check(list, P)) {
+        return copy(list, dim_p(P));
+    } else {
+        return match(list->next, P);
     }
-    else{
-        return match(list->next,P);
-    }
+
 }
 
 /*
@@ -90,20 +101,19 @@ nodo_p *pattern_finder(nodo *list) {
 
 int main() {
 
-    nodo* L1 = 0;
+    nodo *L1 = 0;
 
     cout << "dammi la lista" << endl;
     L1 = leggi();
     stampa_n(L1);
     cout << "dammi il pattern" << endl;
 
-    nodo* P = 0;
+    nodo *P = 0;
     P = leggi();
     stampa_n(P);
 
-    nodo* R = match(L1,P);
+    nodo *R = match(L1, P);
     stampa_n(R);
-
 
 
     cout << dim_p(L1);
