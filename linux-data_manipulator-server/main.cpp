@@ -29,8 +29,11 @@ void creanodo(nodo *&list, int input) {
         creanodo(list->next, input);
 }
 
-void aggiungi_nodo_p(nodo_p *&raccolta, nodo *list) {
-
+void creanodo_p(nodo_p *&raccolta, nodo *list) {
+    if (!raccolta)
+        raccolta = new nodo_p(list);
+    else
+        creanodo_p(raccolta->next, list);
 }
 
 void stampa_n(nodo *list) {
@@ -42,6 +45,15 @@ void stampa_n(nodo *list) {
     stampa_n(list->next);
 }
 
+void stampa_p(nodo_p *list) {
+    if (!list) {
+        cout << endl;
+        return;
+    }
+    stampa_n(list->P);
+    stampa_p(list->next);
+}
+
 nodo *leggi() {
     int input;
     cin >> input;
@@ -50,10 +62,10 @@ nodo *leggi() {
     return new nodo(input, leggi());
 }
 
-int dim_p(nodo *list) {
+int dimension(nodo *list) {
     if (!list)
         return 0;
-    return 1 + dim_p(list->next);
+    return 1 + dimension(list->next);
 }
 
 bool check(nodo *list, nodo *P) {
@@ -74,30 +86,14 @@ nodo *copy(nodo *list, int quantity) {
     return new nodo(list->info, copy(list->next, quantity - 1));
 }
 
-nodo *match(nodo *list, nodo *P) {
+void match(nodo *list, nodo *P, nodo_p *&destination) {
     if (!list)
-        return 0;
-    if (check(list, P)) {
-        return copy(list, dim_p(P));
-    } else {
-        return match(list->next, P);
-    }
+        return;
+    if (check(list, P))
+        creanodo_p(destination, copy(list, dimension(P)));
+    match(list->next, P, destination);
 
 }
-
-/*
-
-nodo *sequence_check(nodo *list, int dim_P) {
-
-}
-
-nodo_p *pattern_finder(nodo *list) {
-    if (!list)
-        return 0;
-    if (!)
-        return pattern_finder(list->next);
-}
-*/
 
 int main() {
 
@@ -112,11 +108,15 @@ int main() {
     P = leggi();
     stampa_n(P);
 
-    nodo *R = match(L1, P);
-    stampa_n(R);
+    nodo_p *R = 0;
+
+    match(L1, P, R);
+
+    cout << "ecco i match fatti" << endl;
+    stampa_p(R);
 
 
-    cout << dim_p(L1);
+    cout << dimension(L1);
 
     return 0;
 }
@@ -134,3 +134,17 @@ int main() {
     }
     fclose(file);
  */
+
+/*
+
+nodo *sequence_check(nodo *list, int dim_P) {
+
+}
+
+nodo_p *pattern_finder(nodo *list) {
+    if (!list)
+        return 0;
+    if (!)
+        return pattern_finder(list->next);
+}
+*/
