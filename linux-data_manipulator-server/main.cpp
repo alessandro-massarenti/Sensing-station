@@ -52,6 +52,28 @@ int dim_p(nodo *list) {
     return 1 + dim_p(list->next);
 }
 
+bool check(nodo* list, nodo* P){
+    if(!P)
+        return true;
+    if(!list)
+        return false;
+    if(list->info == P->info)
+        return check(list->next,P->next);
+    return false;
+}
+
+
+nodo* match(nodo* list, nodo* P){
+    if(!list)
+        return 0;
+    if(check(list,P)){
+        return list;
+    }
+    else{
+        return match(list->next,P);
+    }
+}
+
 /*
 
 nodo *sequence_check(nodo *list, int dim_P) {
@@ -65,10 +87,24 @@ nodo_p *pattern_finder(nodo *list) {
         return pattern_finder(list->next);
 }
 */
+
 int main() {
 
     nodo* L1 = 0;
+
+    cout << "dammi la lista" << endl;
     L1 = leggi();
+    stampa_n(L1);
+    cout << "dammi il pattern" << endl;
+
+    nodo* P = 0;
+    P = leggi();
+    stampa_n(P);
+
+    nodo* R = match(L1,P);
+    stampa_n(R);
+
+
 
     cout << dim_p(L1);
 
