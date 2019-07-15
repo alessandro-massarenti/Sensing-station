@@ -115,6 +115,13 @@ void match_try(nodo *list, nodo_p *&destination, int dimensione) {
     match_try(list->next, destination, dimensione);
 }
 
+void autoscan(nodo *list, nodo_p *&destination) {
+    int size = get_lenght(list);
+    for (int i = 0; i < size; i ++){
+        match_try(list,destination,i);
+    }
+}
+
 int main() {
 
     nodo *L1 = 0;
@@ -124,10 +131,14 @@ int main() {
     stampa_n(L1);
 
     nodo_p *result = 0;
-    match_try(L1, result, 3);
+    autoscan(L1,result);
 
     cout << "ecco i match fatti" << endl;
     stampa_p(result);
+
+    cout << "inserisci qualcosa e premi invio per chiudere il programma";
+    int x ;
+    cin >> x;
 
     return 0;
 }
