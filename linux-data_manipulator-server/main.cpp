@@ -136,6 +136,10 @@ int main() {
     cout << "ecco i match fatti" << endl;
     stampa_p(result);
 
+    cout << "inserisci qualcosa e premi invio per chiudere il programma";
+    int x ;
+    cin >> x;
+
     return 0;
 }
 
