@@ -6,19 +6,23 @@
 # V 2.0
 
 
-import serial
-import db_class
+from db_class import *
+from sensor_class import *
+from bot_class import *
 
 db = Db()
+th_sensor = Sensor("USB0")
 
-ser = serial.Serial('/dev/ttyUSB0', 9600)
+# Fa andare l' ascolto degli imput come un thread separato.
+MessageLoop(bot, {'chat': on_chat_message}).run_as_thread()
+
 while True:
-    data = ser.readline().decode('utf8')
+    
+    th_data = th_sensor.get_data()
 
-    data = data.split(',')
-    print(data)
+    print(th_data)
 
-    temp = float(data[1][:4])
-    humid = float(data[0])
+    temp = float(th_data[1][:4])
+    humid = float(th_data[0])
 
     db.savedata(temp, humid)
