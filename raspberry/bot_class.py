@@ -10,7 +10,8 @@ from telepot.loop import MessageLoop
 
 class Bot:
 
-    bot = telepot.Bot("Bot Token")
+    def __init__(self,token):
+        self.bot = telepot.bot(token)
 
     def send_data(chat_id):
         data = read_data()
@@ -18,7 +19,7 @@ class Bot:
                 "\nUmidità: " + str(data[2]) + \
                 "\nMisurato alle: " + str(data[3])
 
-        bot.sendMessage(chat_id, text=testo)
+        self.bot.sendMessage(chat_id, text=testo)
 
     def on_chat_message(self, msg):
         content_type, chat_type, chat_id = telepot.glance(msg)

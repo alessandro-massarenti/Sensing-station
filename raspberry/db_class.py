@@ -13,7 +13,7 @@ class Db:
     
     host = "localhost"
     user = "datatest"
-    passwd = "Rqm1c1HzhhkwwSx0"
+    passwd = "eJPB0U0Wf7EfZw5e"
     database = "datatest"
 
     # Constructor
