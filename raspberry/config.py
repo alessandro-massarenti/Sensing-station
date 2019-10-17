@@ -2,7 +2,7 @@
 import telepot
 
 # Bot token
-bot = Bot("")
+bot = telepot.Bot("")
 
 # Database position
 
