@@ -28,6 +28,11 @@ void loop()
       Serial.print("temp");
       Serial.println(sensore1.readTemperature());
     }
+    else if (inputString == "humi")
+    {
+      Serial.print("humi");
+      Serial.println(sensore1.readHumidity());
+    }
     else
     {
       Serial.println(inputString);
