@@ -10,19 +10,10 @@ import mysql.connector
 
 
 class Db:
-
-    
-
-
-
-
-
-
-
-    host = "localhost"
-    user = "datatest"
-    passwd = "eJPB0U0Wf7EfZw5e"
-    database = "datatest"
+    host = "mariadb"
+    user = "databerry"
+    passwd = "DEY1syRA6JC39UDU"
+    database = "databerry"
     my_db = None
 
     # Constructor
@@ -38,7 +29,7 @@ class Db:
     def _check_entry_table(self):
         c = self.my_db.cursor()
         sql = "SELECT FROM dati"
-        sql =   "CREATE TABLE `dati` (\
+        sql = "CREATE TABLE `dati` (\
                 `id` int(11) NOT NULL,\
                 `temp` float NOT NULL,\
                 `umid` float NOT NULL,\
@@ -58,11 +49,11 @@ class Db:
 
     def get_data(self, sensor: str):
         c = self.my_db.cursor()
-        sql = "SELECT "+sensor+" FROM dati ORDER BY id DESC LIMIT 1"
+        sql = "SELECT " + sensor + " FROM dati ORDER BY id DESC LIMIT 1"
 
         c.execute(sql)
         data: float = c.fetchone()
-        
+
         self.my_db.commit()
-        print (data)
+        print(data)
         return data

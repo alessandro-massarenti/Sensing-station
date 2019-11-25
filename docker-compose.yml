@@ -1,0 +1,43 @@
+version: '3.4'
+
+services:
+
+# telegram bot
+  sensorberry-bot:
+    container_name: sensorberry-bot
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - /dev/ttyUSB0:/dev/ttyUSB0
+    restart: unless-stopped
+    depends_on:
+      - mariadb
+    links:
+      - mariadb
+
+# phpmyadmin
+  phpmyadmin:
+    depends_on:
+      - mariadb
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    ports:
+      - '8080:80'
+    environment:
+      - PMA_HOST= mariadb
+      - MARIADB_ROOT_PASSWORD=DEY1syRA6JC39UDU
+    links:
+      - mariadb
+
+# database
+  mariadb:
+    container_name: libri-db
+    image: bitnami/mariadb:latest
+    volumes:
+      - ./mariadb-data:/bitnami
+    restart: unless-stopped
+    environment:
+      - MARIADB_ROOT_PASSWORD=DEY1syRA6JC39UDU
+      - MARIADB_DATABASE=databerry
+      - MARIADB_USER=databerry
+      - MARIADB_PASSWORD=DEY1syRA6JC39UDU
