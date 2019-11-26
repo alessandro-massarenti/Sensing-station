@@ -9,9 +9,10 @@ from db_class import *
 
 
 class Plant:
+    database = db
 
     def __init__(self, database: Db):
-        database = self.database
+        self.database = database
 
     def getAirTemp(self) -> float:
         return self.database.get_data("temp")[0]
