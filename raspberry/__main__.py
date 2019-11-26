@@ -31,9 +31,10 @@ def save_data_routine():
 
         ambient_temp = get_data("temp", serial)
         ambient_humidity = get_data("humi", serial)
-        database = Db()
         database.savedata(ambient_temp, ambient_humidity)
 
+
+database = Db()
 
 avocado = Plant()
 
