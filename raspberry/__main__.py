@@ -5,20 +5,20 @@
 # È stato costruito da Alessandro Massarenti
 # V 2.0
 
-import time
 import threading
-import telepot
-from telepot.loop import MessageLoop
+import time
+
 import serial
+from telepot.loop import MessageLoop
+from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton
 
 from config import *
-from plant_class import *
 from funzioni import *
-from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
+from plant_class import *
 
 # Handle input
 usb = "USB0"
-serial = serial.Serial('/dev/tty'+usb, 9600)
+serial = serial.Serial('/dev/tty' + usb, 9600)
 if serial.isOpen():
     serial.close()
 serial.open()
@@ -39,7 +39,6 @@ avocado = Plant()
 
 
 def msg_handler(msg):
-
     content_type, chat_type, chat_id = telepot.glance(msg)
     user_id = msg['from']['id']
 
@@ -51,12 +50,13 @@ def msg_handler(msg):
                     [KeyboardButton(text='avocado')],
                 ]))
 
-        elif(comando == 'avocado'):
+        elif comando == 'avocado':
             airtemp = str(avocado.getAirTemp())
             airhumid = str(avocado.getAirHumid())
             message: str = "Avocado:\nT. aria: " + \
-                airtemp+"°C\n"+"U. aria: " + airhumid + "%"
+                           airtemp + "°C\n" + "U. aria: " + airhumid + "%"
             bot.sendMessage(chat_id, text=message)
+            print("ho risposto al comando avocado di:" + user_id)
 
 
 MessageLoop(bot, msg_handler).run_as_thread()
