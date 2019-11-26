@@ -9,7 +9,6 @@ from db_class import *
 
 
 class Plant:
-    database = db
 
     def __init__(self, database: Db):
         self.database = database
