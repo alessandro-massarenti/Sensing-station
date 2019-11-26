@@ -28,13 +28,21 @@ class Db:
 
     def _check_entry_table(self):
         c = self.my_db.cursor()
-        sql = "SELECT FROM dati"
-        sql = "CREATE TABLE `dati` (\
+        try:
+            sql = "SELECT * FROM dati LIMIT 1"
+            c.execute(sql)
+            print(c.fetchone())
+            print("il database esiste")
+        except:
+            sql = "CREATE TABLE `dati` (\
                 `id` int(11) NOT NULL,\
                 `temp` float NOT NULL,\
                 `umid` float NOT NULL,\
                 `time` timestamp NOT NULL DEFAULT current_timestamp())\
                 ENGINE = InnoDB DEFAULT CHARSET = utf8mb4"
+            c.execute(sql)
+            print("Ho creato il database")
+        self.my_db.commit()
 
     def savedata(self, temp, humid):
         c = self.my_db.cursor()
