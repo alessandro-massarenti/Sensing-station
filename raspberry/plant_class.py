@@ -7,12 +7,15 @@
 
 from db_class import *
 
+
 class Plant:
 
+    @staticmethod
     def getAirTemp(self) -> float:
         database = Db()
         return database.get_data("temp")[0]
+
+    staticmethod
     def getAirHumid(self) -> float:
         database = Db()
         return database.get_data("umid")[0]
-
