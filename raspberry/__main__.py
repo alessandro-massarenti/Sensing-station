@@ -35,8 +35,7 @@ def save_data_routine():
 
 
 database = Db()
-
-avocado = Plant()
+avocado = Plant(database)
 
 
 def msg_handler(msg):
@@ -57,7 +56,7 @@ def msg_handler(msg):
             message: str = "Avocado:\nT. aria: " + \
                            airtemp + "°C\n" + "U. aria: " + airhumid + "%"
             bot.sendMessage(chat_id, text=message)
-            print("ho risposto al comando avocado di:" + user_id)
+            print("ho risposto al comando avocado di:" + str(user_id))
 
 
 MessageLoop(bot, msg_handler).run_as_thread()
