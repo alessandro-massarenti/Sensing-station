@@ -13,14 +13,13 @@ class Db:
     host = "mariadb"
     user = "databerry"
     passwd = "DEY1syRA6JC39UDU"
-    database = "databerry"
     my_db = None
 
     # Constructor
 
-    def __init__(self):
+    def __init__(self, database = "databerry"):
         self.my_db = mysql.connector.connect(
-            host=self.host, user=self.user, passwd=self.passwd, database=self.database)
+            host=self.host, user=self.user, passwd=self.passwd, database=database)
         print("mi sono connesso al db")
 
     # Methods
