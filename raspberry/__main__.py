@@ -35,7 +35,8 @@ def save_data_routine():
 
 
 database = Db()
-avocado = Plant(database)
+database.check_entry_table()
+avocado = Plant()
 
 
 def msg_handler(msg):

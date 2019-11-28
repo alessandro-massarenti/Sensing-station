@@ -22,11 +22,10 @@ class Db:
         self.my_db = mysql.connector.connect(
             host=self.host, user=self.user, passwd=self.passwd, database=self.database)
         print("mi sono connesso al db")
-        self._check_entry_table()
 
     # Methods
 
-    def _check_entry_table(self):
+    def check_entry_table(self):
         c = self.my_db.cursor()
         try:
             sql = "SELECT * FROM dati LIMIT 1"
