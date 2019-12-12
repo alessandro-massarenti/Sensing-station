@@ -52,8 +52,14 @@ def msg_handler(msg):
                 ]))
 
         elif comando == 'avocado':
-            airtemp = str(avocado.getAirTemp())
-            airhumid = str(avocado.getAirHumid())
+            database = Db()
+
+            airtemp = str(avocado.getAirTemp(database))
+            airhumid = str(avocado.getAirHumid(database))
+
+            del database
+
+
             message: str = "Avocado:\nT. aria: " + \
                            airtemp + "°C\n" + "U. aria: " + airhumid + "%"
             bot.sendMessage(chat_id, text=message)
