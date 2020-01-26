@@ -5,11 +5,19 @@
   V 2.0
 */
 
-#include "DHT.h"
+#include "DHT.h" // DHT sensor
+#include <UIPEthernet.h> // Ethernet shield library
 
 String inputString = "";     // a String to hold incoming data
 bool stringComplete = false; // whether the String is complete
 DHT sensore1(2, 22);         // Sensor1 (air temp and humid)
+
+// **** ETHERNET SETTING ****
+byte mac[] = {0x90, 0xA2, 0xDA, 0x0D, 0x78, 0xEE};
+IPAddress ip(192, 168, 51, 55);
+EthernetServer server(80);
+
+String readString;
 
 void setup()
 {
@@ -20,6 +28,14 @@ void setup()
 
 void loop()
 {
+  EthernetClient client = server.available();
+  if(client)
+  {
+    
+  }
+
+
+
 
   if (stringComplete)
   {
