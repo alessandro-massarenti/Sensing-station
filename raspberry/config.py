@@ -8,7 +8,7 @@
 import telepot
 
 # Bot token
-bot = telepot.Bot("883953333:AAEfOUCf00oNi_z2aS71m5LZ7Sz9SphzLKo")
+bot = telepot.Bot("BOTTOKEN")
 
 # Messaggio in GUI
 print ("config.py caricato")
